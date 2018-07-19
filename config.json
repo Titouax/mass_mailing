@@ -1,3 +1,4 @@
+require 'dotenv'
 {"installed":
   {"client_id":"CLIENT_ID",
     "project_id":"mass-mailing-1531990598633",
