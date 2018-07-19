@@ -93,6 +93,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler
   dotenv
   gmail
   google_drive
