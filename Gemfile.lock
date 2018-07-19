@@ -5,6 +5,7 @@ GEM
       public_suffix (>= 2.0.2, < 4.0)
     ast (2.4.0)
     coderay (1.1.2)
+    csv (3.0.0)
     declarative (0.0.10)
     declarative-option (0.1.0)
     dotenv (2.5.0)
@@ -93,6 +94,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler
+  csv
   dotenv
   gmail
   google_drive
@@ -106,4 +109,4 @@ RUBY VERSION
    ruby 2.5.1p57
 
 BUNDLED WITH
-   1.16.1
+   1.16.2
