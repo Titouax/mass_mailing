@@ -10,9 +10,9 @@ class Scrapper
 
   def initialize
     @hash = Hash[get_the_city_name.zip(get_all_mail)]
-    File.open("./db/emails.json", "w") do |f|
-      f.write(hash)
-    end
+    #File.open("./db/emails.json", "w") do |f|
+    #  f.write(hash)
+    #end
   end
 
   def get_the_city_name
@@ -34,7 +34,7 @@ class Scrapper
     lien.each do |link|
       tab_url << link['href'].sub(".", "http://annuaire-des-mairies.com")
     end
-    tab_url
+    p tab_url
   end
 
   def get_all_mail
@@ -58,8 +58,11 @@ class Scrapper
     end
     ws.save
   end
+
   def to_csv
     CSV.open("./db/townhalls.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
   end
 
 end
+
+Scrapper.new.get_all_url
