@@ -10,59 +10,60 @@ class Scrapper
 
   def initialize
     @hash = Hash[get_the_city_name.zip(get_all_mail)]
-    #File.open("./db/emails.json", "w") do |f|
-    #  f.write(hash)
-    #end
-  end
+      end
+
+
 
   def get_the_city_name
+    lien_dep = ['http://www.annuaire-des-mairies.com/morbihan.html','http://www.annuaire-des-mairies.com/lot-et-garonne.html','http://www.annuaire-des-mairies.com/hautes-alpes.html']
     nom_ville = []
-
-    page = Nokogiri::HTML(open('http://www.annuaire-des-mairies.com/'))
-    page.xpath('//p/a').each do |ville|
-      nom_ville << ville.text
-      end
-    nom_ville
+    begin
+    lien_dep.each do |lien|
+      page = Nokogiri::HTML(open(lien))
+      page.xpath('//p/a').each do |ville|
+        nom_ville << ville.text
+        end
+    end
+  rescue OpenURI::HTTPError => e
+    puts 'RESCUE'
+  end
+    p nom_ville
   end
 
   def get_all_url
+    lien_dep = ['http://www.annuaire-des-mairies.com/morbihan.html','http://www.annuaire-des-mairies.com/lot-et-garonne.html','http://www.annuaire-des-mairies.com/hautes-alpes.html']
     tab_url = []
+    begin
+      lien_dep.each do |lien|
+      page = Nokogiri::HTML(open(lien))
+      lien = page.css('//p/a').select{ |link| link['class'] == "lientxt" }
 
-    page = Nokogiri::HTML(open("http://annuaire-des-mairies.com/"))
-    lien = page.css('//p/a').select{ |link| link['class'] == "lientxt" }
-
-    lien.each do |link|
-      tab_url << link['href'].sub(".", "http://annuaire-des-mairies.com")
+        lien.each do |link|
+          tab_url << link['href'].sub(".", "http://annuaire-des-mairies.com")
+        end
+      end
+    rescue OpenURI::HTTPError => e
+      puts 'RESCUE'
     end
     p tab_url
   end
 
   def get_all_mail
     tab_mail = []
-
-    get_all_url.each do |url|
-      mail = Nokogiri::HTML(open(url))
-      tab_mail << mail.xpath('/html/body/div/main/section[2]/div/table/tbody/tr[4]/td[2]').text
+    lien_dep = ['http://www.annuaire-des-mairies.com/morbihan.html','http://www.annuaire-des-mairies.com/lot-et-garonne.html','http://www.annuaire-des-mairies.com/hautes-alpes.html']
+    lien_dep.each do |lien|
+      get_all_url.each do |url|
+        mail = Nokogiri::HTML(open(url))
+        tab_mail << mail.xpath('/html/body/div/main/section[2]/div/table/tbody/tr[4]/td[2]').text
+      end
     end
-    tab_mail
-  end
-
-  def spreadsheets
-    session = GoogleDrive::Session.from_config("../config.json")
-    ws = session.spreadsheet_by_key("152JmKSteBTvUSA-wCTgWbO0wNVw_I6R1BARfBuWh9vM").worksheets[0]
-    counter_row = 1
-    @hash.each_with_index do |(clef, valeur), index|
-      ws[counter_row, 1] = clef
-      ws[counter_row, 2] = valeur
-      counter_row += 1
-    end
-    ws.save
+    p tab_mail
   end
 
   def to_csv
-    CSV.open("./db/townhalls.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
+    CSV.open("townhalls.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
   end
 
 end
 
-Scrapper.new.get_all_url
+Scrapper.new.to_csv
