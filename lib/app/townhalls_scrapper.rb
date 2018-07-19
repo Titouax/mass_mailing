@@ -59,7 +59,7 @@ class Scrapper
     ws.save
   end
   def to_csv
-    CSV.open("data.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
+    CSV.open("./db/townhalls.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
   end
 
 end
