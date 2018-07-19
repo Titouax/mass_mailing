@@ -18,7 +18,7 @@ class Scrapper
   def get_the_city_name
     nom_ville = []
 
-    page = Nokogiri::HTML(open('http://annuaire-des-mairies.com/val-d-oise.html'))
+    page = Nokogiri::HTML(open('http://www.annuaire-des-mairies.com/))
     page.xpath('//p/a').each do |ville|
       nom_ville << ville.text
       end
@@ -28,7 +28,7 @@ class Scrapper
   def get_all_url
     tab_url = []
 
-    page = Nokogiri::HTML(open("http://annuaire-des-mairies.com/val-d-oise.html"))
+    page = Nokogiri::HTML(open("http://annuaire-des-mairies.com/"))
     lien = page.css('//p/a').select{ |link| link['class'] == "lientxt" }
 
     lien.each do |link|
@@ -49,7 +49,7 @@ class Scrapper
 
   def spreadsheets
     session = GoogleDrive::Session.from_config("../config.json")
-    ws = session.spreadsheet_by_key("1UwphAKmqHCR0YQENrFjJZ2uJJGUEp-1AAB6WOY8gZGA").worksheets[0]
+    ws = session.spreadsheet_by_key("152JmKSteBTvUSA-wCTgWbO0wNVw_I6R1BARfBuWh9vM").worksheets[0]
     counter_row = 1
     @hash.each_with_index do |(clef, valeur), index|
       ws[counter_row, 1] = clef
@@ -59,7 +59,7 @@ class Scrapper
     ws.save
   end
   def to_csv
-    CSV.open("data.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
+    CSV.open("/Users/mailan/Documents/Thp_s3/thurs/mass_mailing/db/townhalls.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
   end
 
 end
