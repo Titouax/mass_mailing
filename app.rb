@@ -6,3 +6,5 @@ require_relative "./lib/views/index.rb"
 require_relative "./lib/views/done.rb"
 require_relative './lib/app/townhalls_mailer'
 require_relative "./lib/app/townhalls_scrapper.rb"
+
+Menu.new
