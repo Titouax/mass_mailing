@@ -1,6 +1,7 @@
 require "bundler"
 Bundler.require
-$:.unshift File.expand_path("./../lib", __FILE__)
+$:.unshift File.expand_path("./../lib", __dir__)
 
-require "./lib/views/index.rb"
-require "./lib/views/done.rb"
+require_relative "./lib/views/index.rb"
+require_relative "./lib/views/done.rb"
+require_relative './lib/app/townhalls_mailer'
