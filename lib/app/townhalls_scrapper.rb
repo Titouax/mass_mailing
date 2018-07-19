@@ -10,9 +10,7 @@ class Scrapper
 
   def initialize
     @hash = Hash[get_the_city_name.zip(get_all_mail)]
-      end
-
-
+  end
 
   def get_the_city_name
     lien_dep = ['http://www.annuaire-des-mairies.com/morbihan.html','http://www.annuaire-des-mairies.com/lot-et-garonne.html','http://www.annuaire-des-mairies.com/hautes-alpes.html']
@@ -61,7 +59,7 @@ class Scrapper
   end
 
   def to_csv
-    CSV.open("townhalls.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
+    CSV.open("../../db/townhalls.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
   end
 
 end
