@@ -18,7 +18,7 @@ class Scrapper
   def get_the_city_name
     nom_ville = []
 
-    page = Nokogiri::HTML(open('http://www.annuaire-des-mairies.com/))
+    page = Nokogiri::HTML(open('http://www.annuaire-des-mairies.com/'))
     page.xpath('//p/a').each do |ville|
       nom_ville << ville.text
       end
@@ -59,7 +59,7 @@ class Scrapper
     ws.save
   end
   def to_csv
-    CSV.open("/Users/mailan/Documents/Thp_s3/thurs/mass_mailing/db/townhalls.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
+    CSV.open("./db/townhalls.csv", "wb") {|csv| hash.to_a.each {|elem| csv << elem} }
   end
 
 end
