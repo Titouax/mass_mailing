@@ -10,10 +10,10 @@ class Follower
 
   def initialize
     @client = Twitter::REST::Client.new do |config|
-      config.consumer_key        = "7C9PamNrotofDGwl8Ak4i9tPF"
-      config.consumer_secret     = "vQu2Skqnbvc6A8jLoazaFg6wnB3Lg6UsmP4hs1cmf6WGSeoCxB"
-      config.access_token        = "1016995756220264448-1Rk7FtnkOBAXBfIwcRUYy4bTeGPiaI"
-      config.access_token_secret = "mBv39r6PV3aizklCW12Of5vswJ3XXyyQcwkM3RLuoEX8O"
+      config.consumer_key        = ""
+      config.consumer_secret     = ""
+      config.access_token        = ""
+      config.access_token_secret = ""
     end
     @users = []
     follow_accounts(search_accounts)
