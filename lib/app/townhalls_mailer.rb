@@ -6,13 +6,13 @@ class Mailer
   attr_accessor :array
   def initialize
     @array = []
-    #A completer avant de lancer le code 
+    #A completer avant de lancer le code
     gmail = Gmail.connect("email", "password")
     send(parse)
   end
 
   def parse
-    CSV.foreach('../../db/townhalls.csv').map { |col|
+    CSV.foreach('db/townhalls.csv').map { |col|
        @array << col[1]
      }
      p @array

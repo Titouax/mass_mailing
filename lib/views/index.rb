@@ -1,4 +1,4 @@
-class Menu 
+class Menu
 
 
 	def choice
@@ -6,7 +6,7 @@ class Menu
 		print ">"
 		choice = gets.chomp.to_i
 
-		if choice == 1 
+		if choice == 1
 			Mailer.new
 		if choice == 2
 			Scrapper.new
